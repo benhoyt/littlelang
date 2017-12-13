@@ -5,7 +5,7 @@ package interpreter
 import (
 	"fmt"
 
-	. "littlelang/tokenizer"
+	. "github.com/benhoyt/littlelang/tokenizer"
 )
 
 // Error is the error type returned by Evaluate and Execute. Each error holds

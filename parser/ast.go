@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"strings"
 
-	. "littlelang/tokenizer"
+	. "github.com/benhoyt/littlelang/tokenizer"
 )
 
 type Program struct {

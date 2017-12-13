@@ -8,7 +8,7 @@ import (
 	"testing"
 	"unicode/utf8"
 
-	. "littlelang/tokenizer"
+	. "github.com/benhoyt/littlelang/tokenizer"
 )
 
 type Info struct {

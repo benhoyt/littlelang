@@ -7,7 +7,7 @@ import (
 	"reflect"
 	"testing"
 
-	"littlelang/parser"
+	"github.com/benhoyt/littlelang/parser"
 )
 
 func TestParseExpression(t *testing.T) {

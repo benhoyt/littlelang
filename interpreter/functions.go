@@ -9,8 +9,8 @@ import (
 	"strconv"
 	"strings"
 
-	"littlelang/parser"
-	. "littlelang/tokenizer"
+	"github.com/benhoyt/littlelang/parser"
+	. "github.com/benhoyt/littlelang/tokenizer"
 )
 
 type functionType interface {

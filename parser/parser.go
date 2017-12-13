@@ -9,7 +9,7 @@ import (
 	"fmt"
 	"strconv"
 
-	. "littlelang/tokenizer"
+	. "github.com/benhoyt/littlelang/tokenizer"
 )
 
 // Error is the error type returned by ParseExpression and ParseProgram when

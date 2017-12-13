@@ -7,7 +7,7 @@
 // are more or less unique:
 //
 //     import (
-//         . "littlelang/tokenizer"
+//         . "github.com/benhoyt/littlelang/tokenizer"
 //     )
 //
 // This allows you to access token types using names like RETURN directly

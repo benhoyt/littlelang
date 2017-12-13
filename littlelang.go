@@ -10,9 +10,9 @@ import (
 	"strings"
 	"time"
 
-	"littlelang/interpreter"
-	"littlelang/parser"
-	"littlelang/tokenizer"
+	"github.com/benhoyt/littlelang/interpreter"
+	"github.com/benhoyt/littlelang/parser"
+	"github.com/benhoyt/littlelang/tokenizer"
 )
 
 // Show the source line and position of a parser or interpreter error

@@ -17,8 +17,8 @@ import (
 	"strings"
 	"testing"
 
-	"littlelang/interpreter"
-	"littlelang/parser"
+	"github.com/benhoyt/littlelang/interpreter"
+	"github.com/benhoyt/littlelang/parser"
 )
 
 var (
