@@ -7,8 +7,8 @@ with the usual data types, first-class functions, closures, and a bit more.
 
 It's a tokenizer and parser and a (slow but simple) tree-walk interpreter
 written in Go. There's also an [interpreter written in littlelang
-itself](TODO), just to prove the language is powerful enough to write somewhat
-real programs in.
+itself](https://github.com/benhoyt/littlelang/blob/master/littlelang.ll), just
+to prove the language is powerful enough to write somewhat real programs in.
 
 Below is an example of the language as well as the language grammar, but you
 can [read more here](http://benhoyt.com/writings/littlelang/).
