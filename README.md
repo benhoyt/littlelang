@@ -13,7 +13,8 @@ to prove the language is powerful enough to write somewhat real programs in.
 <!-- Below is an example of the language as well as the language grammar, but you
 can [read more here](http://benhoyt.com/writings/littlelang/). -->
 
-What littlelang looks like:
+
+## An example
 
 ```
 // Lists, the sort() builtin, and for loops
@@ -61,6 +62,9 @@ print(p.str())
 // ----------
 // Bob, aged 42
 ```
+
+
+## Grammar
 
 Below is the full littlelang grammar in pseudo-BNF format. Rules are in
 lowercase letters like "statement", and single tokens are in allcaps like
@@ -110,3 +114,30 @@ map        = LBRACE RBRACE |
 Many thanks to Bob Nystrom for his free book
 [Crafting Interpreters](http://www.craftinginterpreters.com/), which is a
 great read and helped me understand how to implement closures.
+
+
+## Building and running
+
+To build, [install Go](https://golang.org/), then fetch and build like so:
+
+```
+cd ~/go/src  # or wherever your Go code lives
+go get github.com/benhoyt/littlelang
+cd github.com/benhoyt/littlelang/
+go build
+```
+
+You can then run one of the examples using the Go interpreter binary:
+
+```
+./littlelang examples/readme.ll
+```
+
+If you want to get really meta, run the README example using the littlelang interpreter running under the Go interpreter:
+
+```
+./littlelang littlelang.ll examples/readme.ll
+./littlelang littlelang.ll littlelang.ll examples/readme.ll
+```
+
+How deep does the rabbit hole go?
