@@ -6,7 +6,12 @@ sort(lst, lower)
 for x in lst {
     print(x)
 }
-print("-" * 10)
+// Output:
+// ["B", "a", "foo", "z"]
+// a
+// B
+// foo
+// z
 
 // A closure and first-class functions
 func make_adder(n) {
@@ -17,7 +22,8 @@ func make_adder(n) {
 }
 add5 = make_adder(5)
 print("add5(3) =", add5(3))
-print("-" * 10)
+// Output:
+// add5(3) = 8
 
 // A pseudo-class with "methods" using a closure
 func Person(name, age) {
@@ -31,14 +37,5 @@ func Person(name, age) {
 }
 p = Person("Bob", 42)
 print(p.str())
-
 // Output:
-// ["B", "a", "foo", "z"]
-// a
-// B
-// foo
-// z
-// ----------
-// add5(3) = 8
-// ----------
 // Bob, aged 42
