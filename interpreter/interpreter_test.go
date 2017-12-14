@@ -367,8 +367,9 @@ counter()
 
 		// split() builtin
 		{`print(split("\tx\ry\nz ", nil), split("xyz", nil), split("", nil))`, "", `["x", "y", "z"] ["xyz"] []`},
+		{`print(split("\tx\ry\nz "), split("xyz"), split(""))`, "", `["x", "y", "z"] ["xyz"] []`},
 		{`print(split("x|y|z", "|"), split("xyz", "|"), split("", "|"))`, "", `["x", "y", "z"] ["xyz"] [""]`},
-		{`split()`, "type error at 1:1", "split() requires 2 args, got 0"},
+		{`split()`, "type error at 1:1", "split() requires 1 or 2 args, got 0"},
 		{`split("x", 42)`, "type error at 1:1", "split() requires separator to be a str or nil"},
 
 		// str() builtin

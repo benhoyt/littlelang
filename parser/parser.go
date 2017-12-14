@@ -449,6 +449,8 @@ func (p *parser) map_() Expression {
 func ParseExpression(input []byte) (e Expression, err error) {
 	defer func() {
 		if r := recover(); r != nil {
+			// TODO: can just do r.(Error) without check -- it will re-panic if not an Error
+			// TODO: same for other cases in littlelang code
 			if parseError, ok := r.(Error); ok {
 				err = parseError
 			} else {

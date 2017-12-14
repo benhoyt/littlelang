@@ -239,6 +239,7 @@ func evalTimes(pos Position, l, r Value) Value {
 			}
 			return Value(strings.Repeat(l, r))
 		}
+	// TODO: allow list * int and int * list (and add tests)
 	}
 	panic(typeError(pos, "* requires two ints or a str and an int"))
 }

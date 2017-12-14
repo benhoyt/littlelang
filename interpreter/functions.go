@@ -355,13 +355,15 @@ func sortFunc(interp *interpreter, pos Position, args []Value) Value {
 }
 
 func splitFunc(interp *interpreter, pos Position, args []Value) Value {
-	ensureNumArgs(pos, "split", args, 2)
+	if len(args) != 1 && len(args) != 2 {
+		panic(typeError(pos, "split() requires 1 or 2 args, got %d", len(args)))
+	}
 	str, ok := args[0].(string)
 	if !ok {
 		panic(typeError(pos, "split() requires first argument to be a str"))
 	}
 	var parts []string
-	if args[1] == nil {
+	if len(args) == 1 || args[1] == nil {
 		parts = strings.Fields(str)
 	} else if sep, ok := args[1].(string); ok {
 		parts = strings.Split(str, sep)
