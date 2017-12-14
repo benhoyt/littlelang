@@ -193,6 +193,7 @@ counter()
 		{`f = 1234  f()`, "type error at 1:11", "can't call non-function type int"},
 		{`func add(nums...) { sum = 0  for n in nums { sum = sum + n }  return sum }  print(add(), add(42), add(3, 4, 5), add(range(10)...))`, "",
 			"0 42 12 45"},
+		{`return 1`, "runtime error at 1:1", "can't return at top level"},
 
 		// Literals
 		{`print(1234)`, "", `1234`},

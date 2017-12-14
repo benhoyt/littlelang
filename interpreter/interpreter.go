@@ -641,11 +641,8 @@ func newInterpreter(config *Config) *interpreter {
 func Evaluate(expr parser.Expression, config *Config) (v Value, stats *Stats, err error) {
 	defer func() {
 		if r := recover(); r != nil {
-			if e, ok := r.(Error); ok {
-				err = e
-			} else {
-				panic(r)
-			}
+			// Convert to interpreter.Error or re-panic
+			err = r.(Error)
 		}
 	}()
 	interp := newInterpreter(config)
