@@ -223,14 +223,20 @@ func evalMinus(pos Position, l, r Value) Value {
 func evalTimes(pos Position, l, r Value) Value {
 	switch l := l.(type) {
 	case int:
-		if r, rok := r.(int); rok {
+		switch r := r.(type) {
+		case int:
 			return Value(l * r)
-		}
-		if r, rok := r.(string); rok {
+		case string:
 			if l < 0 {
 				panic(valueError(pos, "can't multiply string by a negative number"))
 			}
 			return Value(strings.Repeat(r, l))
+		case *[]Value:
+			lst := make([]Value, 0, len(*r)*l)
+			for i := 0; i < l; i++ {
+				lst = append(lst, (*r)...)
+			}
+			return Value(&lst)
 		}
 	case string:
 		if r, rok := r.(int); rok {
@@ -239,9 +245,19 @@ func evalTimes(pos Position, l, r Value) Value {
 			}
 			return Value(strings.Repeat(l, r))
 		}
-	// TODO: allow list * int and int * list (and add tests)
+	case *[]Value:
+		if r, rok := r.(int); rok {
+			if r < 0 {
+				panic(valueError(pos, "can't multiply list by a negative number"))
+			}
+			lst := make([]Value, 0, len(*l)*r)
+			for i := 0; i < r; i++ {
+				lst = append(lst, (*l)...)
+			}
+			return Value(&lst)
+		}
 	}
-	panic(typeError(pos, "* requires two ints or a str and an int"))
+	panic(typeError(pos, "* requires two ints or a str or list and an int"))
 }
 
 func evalDivide(pos Position, l, r Value) Value {

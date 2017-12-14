@@ -262,6 +262,8 @@ Operator   | Types           | Action
 `*`        | `int * int`     | multiply ints
 `*`        | `str * int`     | repeat str n times
 `*`        | `int * str`     | repeat str n times
+`*`        | `list * int`    | repeat list n times, give new list
+`*`        | `int * list`    | repeat list n times, give new list
 `/`        | `int / int`     | divide ints, truncated
 `%`        | `int % int`     | divide ints, give remainder
 `+`        | `int + int`     | add ints

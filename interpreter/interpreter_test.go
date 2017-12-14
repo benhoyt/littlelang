@@ -108,7 +108,8 @@ func TestExecute(t *testing.T) {
 		// * binary operator
 		{`print(2 * 3, 3 * 4, -1 * 7, 3 * -4)`, "", "6 12 -7 -12"},
 		{`print(3 * "foo", "ba" * 3)`, "", "foofoofoo bababa"},
-		{`print(1 * true)`, "type error at 1:9", "* requires two ints or a str and an int"},
+		{`lst=[1,2]  print([]*3, lst*3, 3*lst)`, "", "[] [1, 2, 1, 2, 1, 2] [1, 2, 1, 2, 1, 2]"},
+		{`print(1 * true)`, "type error at 1:9", "* requires two ints or a str or list and an int"},
 
 		// / binary operator
 		{`print(9 / 3, 10 / 3, 10 / 2, 10 / -2, -10 / 2)`, "", "3 3 5 -5 -5"},
