@@ -74,18 +74,20 @@ if s != "" { t = "The end"  print(t) }
 // The end
 ```
 
+Between tokens, whitespace and comments (`//` through to the end of a line) are ignored.
+
 ### Types
 
-Littlelang has the following data types: nil, bool, int, str, list, map, and func. The int type is a signed 64-bit integer, strings are immutable, lists are growable arrays (use the `append()` builtin), and maps are unordered hash tables. Trailing commas are allowed after the last element in a list or map:
+Littlelang has the following data types: nil, bool, int, str, list, map, and func. The int type is a signed 64-bit integer, strings are immutable arrays of bytes, lists are growable arrays (use the `append()` builtin), and maps are unordered hash tables. Trailing commas are allowed after the last element in a list or map:
 
-Type      | Syntax
---------- | ------
-nil       | `nil`
-bool      | `true false`
-int       | `0 42 1234 -5`
-str       | `"" "foo" "Inner \"quotes\" and a\nline break."`
-list      | `[] [1, 2,] [1, 2, 3]`
-map       | `{} {"a": 1,} {"a": 1, "b": 2}`
+Type      | Syntax                                    | Comments
+--------- | ----------------------------------------- | --------
+nil       | `nil`                                     |
+bool      | `true false`                              |
+int       | `0 42 1234 -5`                            | `-5` is actually `5` with unary `-`
+str       | `"" "foo" "\"quotes\" and a\nline break"` | Escapes: `\" \\ \t \r \n`
+list      | `[] [1, 2,] [1, 2, 3]`                    |
+map       | `{} {"a": 1,} {"a": 1, "b": 2}`           |
 
 ### If statements
 
@@ -117,6 +119,8 @@ while i > 0 {
 // 2
 // 1
 ```
+
+Littlelang does not have `break` or `continue`, but you can `return value` as one way of breaking out of a loop early.
 
 ### For loops
 
@@ -191,6 +195,8 @@ print(plus(lst...))
 // 6
 // 15
 ```
+
+A grammar note: you can't have a "bare return" -- it requires a return value. So if you don't want to return anything (functions always return at least nil anyway), just say `return nil`.
 
 ### Assignment
 
@@ -296,7 +302,7 @@ Operator   | Types           | Action
 
 `find(haystack, needle)` returns the index of needle str in haystack str, or the index of needle element in haystack list. Returns -1 if not found.
 
-`int(str_or_int)` converts decimal str to int (error if invalid). If argument is an int already, return it directly.
+`int(str_or_int)` converts decimal str to int (returns nil if invalid). If argument is an int already, return it directly.
 
 `join(list, sep)` concatenates strs in list to form a single str, with the separator str between each element.
 
