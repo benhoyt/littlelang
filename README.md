@@ -76,7 +76,7 @@ if s != "" { t = "The end"  print(t) }
 
 ### Types
 
-Littlelang has the following data types: nil, bool, int, str, list, map, and func. Strings are immutable, lists are growable arrays (use tne `append()` builtin), and maps are unordered hash tables. Trailing commas are allowed after the last element in a list or map:
+Littlelang has the following data types: nil, bool, int, str, list, map, and func. The int type is a signed 64-bit integer, strings are immutable, lists are growable arrays (use the `append()` builtin), and maps are unordered hash tables. Trailing commas are allowed after the last element in a list or map:
 
 Type      | Syntax
 --------- | ------
@@ -264,33 +264,33 @@ Operator   | Types           | Action
 `*`        | `int * str`     | repeat str n times
 `/`        | `int / int`     | divide ints, truncated
 `%`        | `int % int`     | divide ints, give remainder
-`+`        | `int + int`     | add int
+`+`        | `int + int`     | add ints
 `+`        | `str + str`     | concatenate strs, give new string
 `+`        | `list + list`   | concatenate lists, give new list
-`+`        | `map + map`     | merge maps, keys in right map win
+`+`        | `map + map`     | merge maps into new map, keys in right map win
 `-`        | `int - int`     | subtract ints
 `<`        | `int < int`     | true iff left < right
 `<`        | `str < str`     | true iff left < right (lexicographical)
 `<`        | `list < list`   | true iff left < right (lexicographical, recursive)
-`<= > >=`  | same as `<`     | similar to <
+`<= > >=`  | same as `<`     | similar to `<`
 `in`       | `str in str`    | true iff left is substr of right
 `in`       | `any in list`   | true iff one of list elements == left
 `in`       | `str in map`    | true iff key in map
 `==`       | `any == any`    | deep equality (always false if different type)
-`!=`       | `any != any`    | same as not ==
+`!=`       | `any != any`    | same as `not ==`
 `not`      | `not bool`      | inverse of bool
-`and`      | `bool and bool` | true iff both true, right not eval'd if left false
-`or`       | `bool or bool`  | true iff either true, right not eval'd if left true
+`and`      | `bool and bool` | true iff both true, right not evaluated if left false
+`or`       | `bool or bool`  | true iff either true, right not evaluated if left true
 
 ### Builtin functions
 
-`append(list, values...)` appends the given elements to list, modifying the list in place. It returns nil (like Python's `list.append`) to show it has side effects, rather than returning the list.
+`append(list, values...)` appends the given elements to list, modifying the list in place. It returns nil, rather than returning the list, to reinforce the fact that it has side effects.
 
 `args()` returns a list of the command-line arguments passed to the interpreter (after the littlelang source filename).
 
-`char(int)` returns a string of one-character with the given Unicode codepoint.
+`char(int)` returns a one-character string with the given Unicode codepoint.
 
-`exit([int])` exits the program immediately with given status code (default 0).
+`exit([int])` exits the program immediately with given status code (0 if not given).
 
 `find(haystack, needle)` returns the index of needle str in haystack str, or the index of needle element in haystack list. Returns -1 if not found.
 
@@ -302,7 +302,7 @@ Operator   | Types           | Action
 
 `lower(str)` returns a lowercased version of str.
 
-`print(values...)` prints all values separated by a space and followed by a newline. The equivalent of `str()` is called on every value to convert it to a str.
+`print(values...)` prints all values separated by a space and followed by a newline. The equivalent of `str(v)` is called on every value to convert it to a str.
 
 `range(int)` returns a list of the numbers from 0 through int-1.
 
@@ -312,22 +312,20 @@ Operator   | Types           | Action
 
 `slice(str_or_list, start, end)` returns a subslice of the given str or list from index start through end-1. When slicing a list, the input list is not changed.
 
-`sort(list, [func])` sorts the list in place using a stable sort, and returns nil. Elements in the list must be orderable with < (int, str, or list of those). If a key function is provided, it must take the element as an argument and return an orderable value to use as the sort key.
+`sort(list[, func])` sorts the list in place using a stable sort, and returns nil. Elements in the list must be orderable with `<` (int, str, or list of those). If a key function is provided, it must take the element as an argument and return an orderable value to use as the sort key.
 
-`split(str, [sep])` splits the str using given separator, and returns the components as a list. If sep is not given or nil, it splits on whitespace.
+`split(str[, sep])` splits the str using given separator, and returns the parts (excluding the separator) as a list. If sep is not given or nil, it splits on whitespace.
 
-`str(value)` returns the string representation of value: "nil" for nil, "true" or "false" for bool, decimal for int (eg: "1234"), the str itself for str (not quoted), the littlelang representation for list and map (eg: '[1, 2]' and '{"a": 1}' with keys sorted), and something like "<func name>" for func.
+`str(value)` returns the string representation of value: `nil` for nil, `true` or `false` for bool, decimal for int (eg: `1234`), the str itself for str (not quoted), the littlelang representation for list and map (eg: `[1, 2]` and `{"a": 1}` with keys sorted), and something like `<func name>` for func.
 
-`type(value)` returns a str denoting the type of value: "nil", "bool", "int", "str", "list", "map", or "func".
+`type(value)` returns a str denoting the type of value: `nil`, `bool`, `int`, `str`, `list`, `map`, or `func`.
 
 `upper(str)` returns an uppercased version of str.
 
 
 ## Grammar
 
-Below is the full littlelang grammar in pseudo-BNF format. Rules are in
-lowercase letters like "statement", and single tokens are in allcaps like
-"COMMA" and "NAME" (see tokenizer/tokenizer.go for the full list of tokens).
+Below is the full littlelang grammar in pseudo-BNF format. Rules are in lowercase letters like "statement", and single tokens are in allcaps like "COMMA" and "NAME" (see tokenizer/tokenizer.go for the full list of tokens).
 
 ```
 program    = statement*
@@ -400,6 +398,4 @@ How deep does the rabbit hole go?
 
 # Credits
 
-Many thanks to Bob Nystrom for his free book
-[Crafting Interpreters](http://www.craftinginterpreters.com/), which is a
-great read and helped me understand how to implement closures.
+Many thanks to Bob Nystrom for his free book [Crafting Interpreters](http://www.craftinginterpreters.com/), which is a great read and helped me understand how to implement closures.
