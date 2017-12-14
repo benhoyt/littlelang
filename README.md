@@ -4,7 +4,7 @@ The littlelang programming language is a little language (funny that) designed b
 
 The code includes a tokenizer and parser and a (slowish but simple) tree-walk interpreter written in Go. There's also an [interpreter written in littlelang itself](https://github.com/benhoyt/littlelang/blob/master/littlelang.ll), just to prove the language is powerful enough to write somewhat real programs in.
 
-Below are a couple of [examples of the language](#a-little-example), the [full language "spec"](#language-spec), and the [littlelang grammar](#grammar). However, you might be better off if you [**read my introduction first**](http://benhoyt.com/writings/littlelang/).
+Below are a couple of [examples](#some-little-examples) of the language, the full language ["spec"](#language-spec), and the littlelang [grammar](#grammar). However, you might be better off if you [**read my introduction first**](http://benhoyt.com/writings/littlelang/).
 
 
 ## Some little examples
@@ -211,6 +211,18 @@ print(i)
 // 2
 // 1
 
+map = {"a": 1}
+func change() {
+    map.a = 2
+    print(map.a)
+}
+print(map.a)
+change()
+print(map.a)
+// 1
+// 2
+// 2
+
 lst = [0, 1, 2]
 lst[1] = "one"
 print(lst)
@@ -227,17 +239,17 @@ print(map)
 
 Littlelang supports pretty standard binary and unary operators. Here they are with their precedence, from highest to lowest (operators of the same precedence evaluate left to right):
 
-```
-[]            // Subscript
--             // Unary minus
-* / %         // Multiplication
-+ -           // Addition
-< <= > >= in  // Comparison
-== !=         // Equality
-not           // Logical not
-and           // Logical and (short-circuit)
-or            // Logical or (short-circuit)
-```
+Operators      | Description
+-------------- | -----------
+`[]`           | Subscript
+`-`            | Unary minus
+`* / %`        | Multiplication
+`+ -`          | Addition
+`< <= > >= in` | Comparison
+`== !=`        | Equality
+`not`          | Logical not
+`and`          | Logical and (short-circuit)
+`or`           | Logical or (short-circuit)
 
 Several of the operators are overloaded. Here are the types they can operate on:
 
@@ -304,7 +316,7 @@ Operator   | Types           | Action
 
 `split(str, [sep])` splits the str using given separator, and returns the components as a list. If sep is not given or nil, it splits on whitespace.
 
-`str(value)` returns the string representation of value: "nil" for nil, "true" or "false" for bool, decimal for int (eg: "1234"), the str itself for str (not quoted), the littlelang representation for list and map (eg: '[1, 2]' and '{"a": 1}'), and something like "<func name>" for func.
+`str(value)` returns the string representation of value: "nil" for nil, "true" or "false" for bool, decimal for int (eg: "1234"), the str itself for str (not quoted), the littlelang representation for list and map (eg: '[1, 2]' and '{"a": 1}' with keys sorted), and something like "<func name>" for func.
 
 `type(value)` returns a str denoting the type of value: "nil", "bool", "int", "str", "list", "map", or "func".
 
