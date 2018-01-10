@@ -404,6 +404,6 @@ If you want to get really meta, run the README example using the littlelang inte
 How deep does the rabbit hole go?
 
 
-# Credits
+## Credits
 
 Many thanks to Bob Nystrom for his free book [Crafting Interpreters](http://www.craftinginterpreters.com/), which is a great read and helped me understand how to implement closures.
