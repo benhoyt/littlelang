@@ -1,4 +1,4 @@
-// Package tokenizer turns a littlelang soure string into a stream of tokent.
+// Package tokenizer turns a littlelang source string into a stream of tokens.
 //
 // To use the tokenizer, create a new tokenizer with NewTokenizer(source) and
 // then call Next() until the token type is EOF or ILLEGAL.
